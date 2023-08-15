@@ -17,6 +17,14 @@ function Grid.new(width, height)
     return setmetatable(self, Grid)
 end
 
+function Grid:clear()
+    for j = 1,#self.map do
+        for i = 1,#self.map[j] do
+            self.map[i][j] = 0
+        end
+    end
+end
+
 function Grid:display()
     local colors = {
         "\27[31m",
