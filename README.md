@@ -1,2 +1,2 @@
 # Lua BSP Dungeon Generation
-BSP tree based dungeon generation algorithm in Lua
+BSP dungeon generation algorithm in Lua
