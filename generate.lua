@@ -31,8 +31,8 @@ function findLeaf(node, leafNodes)
     findLeaf(node.rnode, leafNodes)
 end
 
-function display(grid, leafNodes)
-    for index,node in ipairs(leafNodes) do
+function display(grid, nodes)
+    for index,node in ipairs(nodes) do
         for j = node.pos[1][2],node.pos[2][2] do
             for i = node.pos[1][1],node.pos[2][1] do
                 grid.map[i][j] = index
@@ -49,19 +49,22 @@ function wait()
         io.write("continue?")
         io.flush()
         answer=io.read()
-    until answer==""
+    until answer ~= nil
 end
 
 local leafNodes = {}
 local root = nil
-local grid = nil
-
 while #leafNodes < config.MIN_NODES do
     leafNodes = {}
-    grid = Grid.new(config.GRID_WIDTH, config.GRID_HEIGHT)
     root = Node.new({1, 1}, {config.GRID_WIDTH, config.GRID_HEIGHT})
     split(root, 0)
     findLeaf(root, leafNodes)
 end
 
-display(grid, leafNodes)
+local rooms = {}
+while #leafNodes > 0 do
+    table.insert(rooms, table.remove(leafNodes, math.random(1, #leafNodes)))
+end
+
+local grid = Grid.new(config.GRID_WIDTH, config.GRID_HEIGHT)
+display(grid, rooms)
